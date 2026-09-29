@@ -1,0 +1,220 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --hairline-color: rgba(27, 38, 33, 0.16);
+    --bg-paper: #F4EFE6;
+    --text-ink: #1B2621;
+  }
+
+  .dark {
+    --hairline-color: rgba(232, 226, 213, 0.14);
+    --bg-paper: #101A15;
+    --text-ink: #F4EFE6;
+  }
+
+  body {
+    background-color: var(--bg-paper);
+    color: var(--text-ink);
+    font-family: var(--font-ibm-sans), system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.01em;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-fraunces), Georgia, serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  .font-mono {
+    font-family: var(--font-ibm-mono), monospace;
+  }
+
+  .font-hindi {
+    font-family: var(--font-noto-hindi), system-ui, sans-serif;
+  }
+}
+
+/* Subtle cartographic contour SVG background pattern */
+.carto-contour-bg {
+  background-image: radial-gradient(rgba(31, 77, 58, 0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.dark .carto-contour-bg {
+  background-image: radial-gradient(rgba(244, 239, 230, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* Hairline borders */
+.border-hairline {
+  border-width: 1px;
+  border-color: var(--hairline-color);
+}
+
+.border-b-hairline {
+  border-bottom-width: 1px;
+  border-bottom-color: var(--hairline-color);
+}
+
+.border-t-hairline {
+  border-top-width: 1px;
+  border-top-color: var(--hairline-color);
+}
+
+.border-r-hairline {
+  border-right-width: 1px;
+  border-right-color: var(--hairline-color);
+}
+
+.border-l-hairline {
+  border-left-width: 1px;
+  border-left-color: var(--hairline-color);
+}
+
+/* Survey-stamp ink animation */
+@keyframes stampIn {
+  0% {
+    opacity: 0;
+    transform: scale(2.2) rotate(-16deg);
+  }
+  60% {
+    opacity: 0.95;
+    transform: scale(0.96) rotate(3deg);
+  }
+  80% {
+    transform: scale(1.02) rotate(-1deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.animate-stamp {
+  animation: stampIn 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-delay: -1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
+  }
+  .animate-stamp {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Leaflet map overrides to match cartographic style */
+.leaflet-container {
+  font-family: inherit !important;
+  background-color: #E8E2D5 !important;
+}
+
+.leaflet-control-zoom {
+  border: 1px solid rgba(27, 38, 33, 0.3) !important;
+  box-shadow: none !important;
+  border-radius: 2px !important;
+}
+
+.leaflet-control-zoom a {
+  background-color: #F4EFE6 !important;
+  color: #1B2621 !important;
+  border-bottom: 1px solid rgba(27, 38, 33, 0.2) !important;
+}
+
+/* Print stylesheet for official land report */
+@media print {
+  header, footer, nav, button, .no-print {
+    display: none !important;
+  }
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  .print-page {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+}
+
+/* High-tech GIS HUD & 3D Scanline Animations */
+@keyframes radarSweep {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes lidarScan {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 0.8; }
+  100% { transform: translateY(1000%); opacity: 0; }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.08); }
+}
+
+@keyframes floatGentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-radar-sweep {
+  animation: radarSweep 4s linear infinite;
+}
+
+.animate-lidar-scan {
+  animation: lidarScan 3.5s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+.animate-float-gentle {
+  animation: floatGentle 4s ease-in-out infinite;
+}
+
+/* Glassmorphism high-tech HUD cards */
+.hud-glass {
+  background: rgba(244, 239, 230, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(31, 77, 58, 0.2);
+}
+
+.dark .hud-glass {
+  background: rgba(23, 35, 30, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(56, 128, 98, 0.3);
+}
+
+/* Geometric Cadastral Grid background */
+.cadastral-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(31, 77, 58, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(31, 77, 58, 0.06) 1px, transparent 1px);
+}
+
+.dark .cadastral-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(232, 226, 213, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(232, 226, 213, 0.04) 1px, transparent 1px);
+}
+

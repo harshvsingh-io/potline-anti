@@ -1,0 +1,17 @@
+{
+  "name": "Plotline Land Stack DPI",
+  "short_name": "Plotline",
+  "description": "One parcel. One identity. Every department. National Land Stack Prototype for Unified Land Governance in India.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4EFE6",
+  "theme_color": "#1F4D3A",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
