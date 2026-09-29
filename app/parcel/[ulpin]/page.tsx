@@ -22,12 +22,28 @@ import {
   Download,
   Share2,
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import { PARCELS_DATA, ParcelData } from "@/data/parcels";
-import { ParcelMap2D } from "@/components/map/ParcelMap2D";
-import { LayerStack3DModal } from "@/components/3d/LayerStack3D";
 import { RiskGauge } from "@/components/health/RiskGauge";
 import { saveParcelToOfflineCache } from "@/lib/offlineCache";
 import { useApp } from "@/components/providers/AppProvider";
+
+const ParcelMap2D = dynamic(
+  () => import("@/components/map/ParcelMap2D").then((m) => m.ParcelMap2D),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[520px] bg-paper-dark dark:bg-night-surface border border-hairline flex items-center justify-center font-mono text-xs text-ink-muted">
+        Loading Cadastral Vector Map...
+      </div>
+    ),
+  }
+);
+
+const LayerStack3DModal = dynamic(
+  () => import("@/components/3d/LayerStack3D").then((m) => m.LayerStack3DModal),
+  { ssr: false }
+);
 
 type TabType =
   | "overview"

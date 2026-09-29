@@ -13,10 +13,22 @@ import {
   MapPin,
   ShieldCheck,
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import { PARCELS_DATA, ParcelData } from "@/data/parcels";
 import { simulateSubdivision } from "@/lib/turfUtils";
-import { Subdivision3D } from "@/components/3d/Subdivision3D";
 import { useApp } from "@/components/providers/AppProvider";
+
+const Subdivision3D = dynamic(
+  () => import("@/components/3d/Subdivision3D").then((m) => m.Subdivision3D),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[400px] bg-paper-dark dark:bg-night-surface border border-hairline flex items-center justify-center font-mono text-xs text-ink-muted">
+        Initializing 3D Severance Viewport...
+      </div>
+    ),
+  }
+);
 
 function SubdivisionContent() {
   const searchParams = useSearchParams();

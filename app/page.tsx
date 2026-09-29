@@ -35,14 +35,37 @@ import {
   AlertTriangle,
   Fingerprint,
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import { Wordmark } from "@/components/branding/Wordmark";
 import { LogoMark } from "@/components/branding/LogoMark";
-import { LandingHero3D } from "@/components/3d/LandingHero3D";
-import { Neighborhood3D } from "@/components/3d/Neighborhood3D";
 import { ContourCursorCanvas } from "@/components/ui/ContourCursorCanvas";
 import { useApp } from "@/components/providers/AppProvider";
 import { PARCELS_DATA, ParcelData } from "@/data/parcels";
 import { VerifiedStamp } from "@/components/branding/VerifiedStamp";
+
+const LandingHero3D = dynamic(
+  () => import("@/components/3d/LandingHero3D").then((m) => m.LandingHero3D),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[580px] bg-paper-dark dark:bg-night-surface border border-hairline flex items-center justify-center font-mono text-xs text-ink-muted">
+        Initializing 3D Spatial Canvas...
+      </div>
+    ),
+  }
+);
+
+const Neighborhood3D = dynamic(
+  () => import("@/components/3d/Neighborhood3D").then((m) => m.Neighborhood3D),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[580px] bg-paper-dark dark:bg-night-surface border border-hairline flex items-center justify-center font-mono text-xs text-ink-muted">
+        Initializing 3D Spatial Canvas...
+      </div>
+    ),
+  }
+);
 
 export default function HomePage() {
   const router = useRouter();

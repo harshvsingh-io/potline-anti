@@ -16,10 +16,22 @@ import {
   Eye,
   Filter,
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import { PARCELS_DATA, ParcelData } from "@/data/parcels";
-import { Neighborhood3D } from "@/components/3d/Neighborhood3D";
 import { dbStore } from "@/lib/dbStore";
 import { useApp } from "@/components/providers/AppProvider";
+
+const Neighborhood3D = dynamic(
+  () => import("@/components/3d/Neighborhood3D").then((m) => m.Neighborhood3D),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[540px] bg-paper-dark dark:bg-night-surface border border-hairline flex items-center justify-center font-mono text-xs text-ink-muted">
+        Initializing 3D Radar Grid...
+      </div>
+    ),
+  }
+);
 
 export default function ConflictRadarPage() {
   const { lang, role } = useApp();
